@@ -10,7 +10,8 @@ html = response.text
 soup = BeautifulSoup(html, 'html.parser')
 
 class_regex = re.compile(r'fig-\d+')
-bookservices = soup.select('[class*="fig-"]')
-for no, book in enumerate(bookservices, 1):
-    class_name = ' '.join(class_regex.findall(' '.join(book.get('class'))))
-    print(no, book.text.strip(), class_name)
+elements = soup.select('div[class*="fig-"], a[class*="fig-"]')
+for no, element in enumerate(elements, 1):
+    if element.name == 'a':
+        class_name = ' '.join(class_regex.findall(' '.join(element.get('class'))))
+        print(no, element.text.strip(), class_name)
