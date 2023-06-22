@@ -9,8 +9,8 @@ html = response.text
 
 soup = BeautifulSoup(html, 'html.parser')
 
-class_regex = re.compile(r'fig-\d+')
-elements = soup.select('div[class*="fig-"], a[class*="fig-"]')
+class_regex = re.compile(r'fig-rs\d+')
+elements = soup.select('div[class*="fig-"], a[class*="fig-rs"]')
 for no, element in enumerate(elements, 1):
     if element.name == 'a':
         class_name = ' '.join(class_regex.findall(' '.join(element.get('class'))))
