@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import re
 
 url = 'https://ridibooks.com/category/bestsellers/2200'
 response = requests.get(url)
@@ -8,6 +9,8 @@ html = response.text
 
 soup = BeautifulSoup(html, 'html.parser')
 
-bookservices = soup.select('.title_text')
+class_regex = re.compile(r'fig-\d+')
+bookservices = soup.select('[class*="fig-"]')
 for no, book in enumerate(bookservices, 1):
-    print(no, book.text.strip())
+    class_name = ' '.join(class_regex.findall(' '.join(book.get('class'))))
+    print(no, book.text.strip(), class_name)
