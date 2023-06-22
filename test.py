@@ -13,4 +13,4 @@ class_regex = re.compile(r'fig-rs\d+')
 elements = soup.select('a[class*="fig-rs"]')
 for no, element in enumerate(elements, 1):
     if element.name == 'a':
-        print(no, element.text.strip())
+        print(f'{no} {element.text.strip()}')
